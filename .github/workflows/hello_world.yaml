@@ -1,0 +1,19 @@
+name: Say Hello World
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16]
+    name: Using Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Say Hello
+        run: echo "Hello Interns!"
+        shell: bash

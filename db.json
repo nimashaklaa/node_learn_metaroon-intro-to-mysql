@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Mango"
+    },
+    {
+      "id": 2,
+      "name": "Mango"
+    },
+    {
+      "id": 3,
+      "name": "Pineapple"
+    },
+    {
+      "id": 4,
+      "name": "Grapes"
+    },
+    {
+      "id": 5,
+      "name": "Orange"
+    }
+  ]
+}
