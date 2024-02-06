@@ -3,9 +3,6 @@ import itemRoutes from "./routes/item-routes";
 import dotenv from 'dotenv'
 import {Server} from "http";
 import path from "path";
-import DbUtil from "./utils/db-util";
-import {DBConfig} from "./configs/db-config";
-import {createConnection} from "typeorm";
 
 dotenv.config()
 
@@ -27,33 +24,9 @@ app.get('/', (req, res)=> {
 app.use('/api/v1/interns', itemRoutes)
 
 
-// Init DB
-// const DB = new DbUtil({
-//     HOST: DBConfig.DB_HOST,
-//     USER: DBConfig.DB_USER,
-//     PASSWORD: DBConfig.DB_PASSWORD,
-//     DATABASE: DBConfig.DB_DATABASE
-// })
-//
-// DB.createConnection().then((connection)=> {
-//     console.log('🟢 Connected successfully to the database');
-//     server = app.listen(PORT, ()=> {
-//         console.log(`🚀 Server is running on port ${PORT}`)
-//     })
-// }).catch((ex)=> {
-//     console.error('🔴 Database connection unsuccessful!', ex)
-// })
-
-// Using TypeORM
-createConnection().then(()=> {
-    console.log('🟢 Connected successfully to the database');
-        server = app.listen(PORT, ()=> {
-        console.log(`🚀 Server is running on port ${PORT}`)
-    })
-}).catch((ex)=> {
-    console.log('🔴 Server connection error', ex)
+server = app.listen(PORT, ()=> {
+    console.log(`🚀 Server is running on port ${PORT}`)
 })
-
 
 export {app,server}
 
