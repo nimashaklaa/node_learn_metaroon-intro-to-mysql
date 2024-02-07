@@ -27,7 +27,7 @@ export class InternController {
     //Retrieve All
     async retrieveAll(req: Request, res: Response) {
         try {
-            const searchParams = req.query; // Assuming you're using Express and want to get query parameters
+            const searchParams = req.query;
 
             const interns = await internRepository.retrieveAll(searchParams);
             console.log('Retrieval succeed!');
@@ -39,7 +39,7 @@ export class InternController {
     }
     async retrieveById(req: Request, res: Response) {
         try {
-            const id = parseInt(req.params.id, 10); // Assuming the id is passed as a URL parameter
+            const id = parseInt(req.params.id, 10);
 
             if (isNaN(id)) {
                 return res.status(400).json({ message: 'Invalid ID format' });
@@ -60,20 +60,18 @@ export class InternController {
 
     async update(req: Request, res: Response) {
         try {
-            const id = parseInt(req.params.id, 10); // Assuming the id is passed as a URL parameter
+            const id = parseInt(req.params.id, 10);
             const { First_Name, Last_Name, Address, University } = req.body;
 
             if (isNaN(id) || !First_Name || !Last_Name || !Address || !University) {
                 return res.status(400).json({ message: 'Invalid ID or Missing Arguments' });
             }
-
             // Check if the intern with the given id exists
             const existingIntern = await internRepository.retrieveById(id);
 
             if (!existingIntern) {
                 return res.status(404).json({ message: 'Intern not found' });
             }
-
             // Create an updated intern object
             const updatedIntern: IIntern = {
                 InternID: id,
@@ -83,7 +81,6 @@ export class InternController {
                 University,
             }as IIntern;
 
-            // Call the update method from your repository
             const affectedRows = await internRepository.update(updatedIntern);
 
             if (affectedRows > 0) {
