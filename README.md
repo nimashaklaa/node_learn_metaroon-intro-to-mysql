@@ -29,7 +29,6 @@ createConnection();{
                 resolve(this.connection);
             });
         } catch (ex) {
-            console.log('🔴 Connection failed with the database', ex);
             reject(ex);
         }
     });
@@ -55,11 +54,7 @@ save(record: IIntern) : Promise<number> {
             const queryParams = [First_Name, Last_Name, Address, University]
             //     run the query
             this.connection?.query<OkPacket>(query, queryParams, (err, result) => {
-                if(err){
-                    console.log('🔴 Error occurred: ', err)
-                    reject(err)
-                    return
-                }
+                //...
                 resolve(result.affectedRows)
             })
         }catch(ex){
@@ -102,11 +97,7 @@ retrieveAll(searchParams?: { id?: number }): Promise<IIntern[]> {
             if (searchParams && searchParams.id) {
                 query += ` WHERE InternID = ?`;
                 this.connection.query<RowDataPacket[]>(query, [searchParams.id], (err, results) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-
+                    //...
                     const interns: IIntern[] = results.map((row: RowDataPacket) => ({
                         InternID: row.InternID as number,
                         First_Name: row.First_Name as string,
@@ -115,15 +106,11 @@ retrieveAll(searchParams?: { id?: number }): Promise<IIntern[]> {
                         University: row.University as string
 
                     }))as IIntern[];
-
                     resolve(interns);
                 });
             } else {
                 this.connection.query<RowDataPacket[]>(query, (err, results) => {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
+                    //...
                     const interns: IIntern[] = results.map((row: RowDataPacket) => ({
                         InternID: row.InternID as number,
                         First_Name: row.First_Name as string,
@@ -167,13 +154,9 @@ checked the API in postman=>
 - intern-controller.ts =>
  ````ts
 const id = parseInt(req.params.id, 10);
-if (isNaN(id)) {
-    return res.status(400).json({ message: 'Invalid ID format' });
-}
+//...
 const intern = await internRepository.retrieveById(id);
-if (!intern) {
-    return res.status(404).json({ message: 'Intern not found' });
-}
+//...
 res.status(200).json(intern);
 ````
 - intern-repository.ts =>
@@ -184,10 +167,7 @@ retrieveById(id: number): Promise<IIntern | undefined> {
            //...
             const query = 'SELECT * FROM Interns WHERE InternID = ?';
             this.connection.query<RowDataPacket[]>(query, [id], (err, results) => {
-                if (err) {
-                    reject(err);
-                    return;
-                }
+                //...
                 if (results.length === 0) {
                     resolve(undefined); 
                 } else {
