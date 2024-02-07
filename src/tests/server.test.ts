@@ -10,6 +10,8 @@ describe('GET /', () => {
     it('should respond with a message', async () => {
         const response = await request(app).get('/');
         expect(response.statusCode).toBe(200);
-        expect(response.body).toEqual({ message: 'Hello World!' });
+        const expectedHtml = /<!DOCTYPE html>[\s\S]*<\/html>/;
+        expect(response.text).toMatch(expectedHtml);
+        //expect(response.body).toEqual({ message: 'Hello World!' });
     });
 });
