@@ -1,5 +1,6 @@
 import mysql from "mysql2";
 import {DBConfig} from "../configs/db-config";
+//create the instances
 export default mysql.createConnection({
     host: DBConfig.DB_HOST,
     user: DBConfig.DB_USER,

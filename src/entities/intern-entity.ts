@@ -1,7 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { RowDataPacket } from "mysql2";
+import IIntern from "../defenitions/interfaces/intern";
 
 @Entity()
-export class InternEntity{
+export class InternEntity {
     @PrimaryGeneratedColumn()
     Intern_ID: number | undefined;
 
