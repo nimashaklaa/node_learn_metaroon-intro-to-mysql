@@ -3,7 +3,7 @@
   "host": "localhost",
   "port": 3306,
   "username": "root",
-  "password": "Amn@991125",
+  "password": "Place your db password here!",
   "database": "Metaroon",
   "synchronize": true,
   "logging": false,
