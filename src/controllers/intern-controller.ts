@@ -133,6 +133,15 @@ export class InternController {
             res.status(500).json({ message: 'Error occurred during deletion', stack: ex });
         }
     }
+    async deleteAll(req: Request, res: Response) {
+        try {
+            const deletedRows = await internRepository.deleteAll();
+            res.status(200).json({ message: 'Deleted all interns successfully', deletedRows });
+        } catch (ex) {
+            console.log('🔴 Error occurred during deletion: ', ex);
+            res.status(500).json({ message: 'Error occurred during deletion', stack: ex });
+        }
+    }
 
 
 }

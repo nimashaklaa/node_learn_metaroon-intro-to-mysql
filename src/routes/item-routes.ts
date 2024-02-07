@@ -9,5 +9,6 @@ router.get('/', internController.retrieveAll);
 router.get('/:id', internController.retrieveById);
 router.put('/:id', internController.update);
 router.delete('/:id', internController.delete);
+router.delete('/', internController.deleteAll);
 
 export default router

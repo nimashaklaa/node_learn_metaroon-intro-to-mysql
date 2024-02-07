@@ -193,8 +193,33 @@ class InternRepository extends RepoBase<IIntern>{
             }
         });
     }
+    // Delete all interns
+    deleteAll(): Promise<number> {
+        return new Promise((resolve, reject) => {
+            try {
+                if (!this.connection) {
+                    console.error('🔴 Database connection is undefined');
+                    reject('Database connection is undefined');
+                    return;
+                }
 
+                const query = 'DELETE FROM Interns';
 
+                this.connection.query<OkPacket>(query, (err, result) => {
+                    if (err) {
+                        console.log('🔴 Error occurred during deletion: ', err);
+                        reject(err);
+                        return;
+                    }
+
+                    resolve(result.affectedRows);
+                });
+            } catch (ex) {
+                console.log('🔴 Error occurred during deletion: ', ex);
+                reject(ex);
+            }
+        });
+    }
 
 }
 
